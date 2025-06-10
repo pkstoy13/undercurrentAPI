@@ -133,3 +133,4 @@ C:\Users\pksto\Web Apps\undercurrentAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.
 C:\Users\pksto\Web Apps\undercurrentAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\pksto\Web Apps\undercurrentAPI\bin\Debug\net9.0\AutoMapper.dll
 C:\Users\pksto\Web Apps\undercurrentAPI\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\pksto\Web Apps\undercurrentAPI\obj\Debug\net9.0\undercurrentAPI.sourcelink.json

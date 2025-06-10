@@ -10,6 +10,7 @@ namespace undercurrentAPI.Mappings
         {
             CreateMap<Artist, ArtistReadDTO>();
             CreateMap<ArtistCreateDTO, Artist>();
+            CreateMap<ArtistUpdateDTO, Artist>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }

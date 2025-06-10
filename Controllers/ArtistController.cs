@@ -31,7 +31,7 @@ namespace undercurrentAPI.Controllers
 
         // GET: api/artists/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Artist>> GetArtistById(Guid id)
+        public async Task<ActionResult<ArtistReadDTO>> GetArtistById(Guid id)
         {
             var artist = await _context.Artists.FindAsync(id);
 
@@ -40,7 +40,7 @@ namespace undercurrentAPI.Controllers
                 return NotFound();
             }
 
-            return artist;
+            return Ok(_mapper.Map<ArtistReadDTO>(artist));
         }
 
         //create a new artist
@@ -59,25 +59,21 @@ namespace undercurrentAPI.Controllers
         }
 
         //edit an artist
-        [HttpPut]
-        public async Task<IActionResult> EditArtist(Guid id, Artist artist)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> EditArtist(Guid id, [FromBody] ArtistUpdateDTO dto)
         {
-            if (id != artist.Id) return BadRequest("Id not found");
-            _context.Entry(artist).State = EntityState.Modified;
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DBConcurrencyException)
-            {
-                if (!ArtistExists(id)) return NotFound();
-                else throw;
-            }
-            return NoContent();
+            var artist = await _context.Artists.FindAsync(id);
+            if (artist == null) return NotFound();
+
+            _mapper.Map(dto, artist);
+            await _context.SaveChangesAsync();
+
+            return Ok(_mapper.Map<ArtistReadDTO>(artist));
         }
 
+
         //delete an Artist
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArtist(Guid id)
         {
             var artist = await _context.Artists.FindAsync(id);
