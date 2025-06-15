@@ -7,8 +7,8 @@ using undercurrentAPI.DTOs;
 
 namespace undercurrentAPI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ArtistStatController : ControllerBase
     {
         private readonly ArtistDbContext _context;
