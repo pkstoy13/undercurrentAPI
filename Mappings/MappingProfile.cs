@@ -8,9 +8,22 @@ namespace undercurrentAPI.Mappings
     {
         public MappingProfile()
         {
+            //Artist
             CreateMap<Artist, ArtistReadDTO>();
             CreateMap<ArtistCreateDTO, Artist>();
             CreateMap<ArtistUpdateDTO, Artist>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            //Platform Account
+            CreateMap<PlatformAccount, PlatformAccountReadDTO>();
+            CreateMap<PlatformAccountCreateDTO, PlatformAccount>();
+            CreateMap<PlatformAccountUpdateDTO, PlatformAccount>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            //Artist Stats
+            CreateMap<ArtistStat, ArtistStatReadDTO>();
+            CreateMap<ArtistStatCreateDTO, ArtistStat>();
+            CreateMap<ArtistStatUpdateDTO, ArtistStat>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+
         }
     }
 }
