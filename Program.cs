@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using undercurrentAPI.Models; // Namespace where ArtistDbContext and models live
 using undercurrentAPI.Data;   // Namespace where DbSeeder is located
 using undercurrentAPI.Mappings;
+using undercurrentAPI.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Undercurrent API", Version = "v1" });
 });
+builder.Services.AddHttpClient<SpotifyAuthService>();
+builder.Services.AddHttpClient<SpotifyApiService>();
+
 
 var app = builder.Build();
 
