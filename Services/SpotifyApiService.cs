@@ -1,5 +1,7 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
+using undercurrentAPI.DTOs.Spotify;
+
 
 namespace undercurrentAPI.Services
 {
@@ -15,7 +17,7 @@ namespace undercurrentAPI.Services
         }
 
         // Example: Search artists by name
-        public async Task<JsonDocument?> SearchArtistsAsync(string artistName)
+        public async Task<SpotifySearchResponse?> SearchArtistsAsync(string artistName)
         {
             var token = await _authService.GetAccessTokenAsync();
             if (token == null) return null;
@@ -25,8 +27,14 @@ namespace undercurrentAPI.Services
             var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={Uri.EscapeDataString(artistName)}&type=artist&limit=10");
             if (!response.IsSuccessStatusCode) return null;
 
-            var stream = await response.Content.ReadAsStreamAsync();
-            return await JsonDocument.ParseAsync(stream);
+            var content = await response.Content.ReadAsStringAsync();
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            return JsonSerializer.Deserialize<SpotifySearchResponse>(content, options);
         }
 
         // You can add more methods to get artist details, albums, etc.
