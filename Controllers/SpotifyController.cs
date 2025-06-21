@@ -70,8 +70,13 @@ namespace undercurrentAPI.Controllers
 
                 _context.Artists.Add(artist);
                 _context.PlatformAccounts.Add(platformAccount);
+                
+                var stat = SpotifyMapper.MapToArtistStat(spArtist, platformAccount.Id);
+                _context.ArtistStats.Add(stat);
+
                 createdArtists.Add(artist);
             }
+
 
             await _context.SaveChangesAsync();
 
